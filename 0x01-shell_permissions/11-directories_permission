@@ -1,4 +1,1 @@
-chmod -R a+x ./
-chmod -R a+x ./
-chmod -R a+X ./
 chmod -R a+X ./
