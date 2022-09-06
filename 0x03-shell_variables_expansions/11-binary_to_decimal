@@ -1,0 +1,1 @@
+echo {a..z}{a..z} | tr " " "\n" | egrep -v "oo" 
