@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+# a script that installs and configures HAProxy
+
+# install HAProxy
+apt-get install --no-install-recommends software-properties-common -y
+add-apt-repository ppa:vbernat/haproxy-2.0 -y
+apt-get update -y
+apt-get install -y haproxy=2.0.\*
+
+# configurations
+
+# make HAProxy load balancer to start automatically when the system boots.
+touch /etc/default/haproxy
+echo "ENABLED=1" >> /etc/default/haproxy
+# configuration in haproxy config file
+echo -e "
+frontend frontendserver
+bind *:80
+mode http
+default_backend mywebservers
+backend mywebservers
+balance roundrobin
+server 56293-web-01 100.25.41.245:80 check
+server 56293-web-02 54.172.27.227:80 check" >> /etc/haproxy/haproxy.cfg
+service haproxy start 
+service haproxy restart
