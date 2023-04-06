@@ -1,4 +1,4 @@
-# HAProxy config file for redirecting all http traffic to https
+# HAProxy config file for ssl termination on LB side
 global
 	log /dev/log	local0
 	log /dev/log	local1 notice
@@ -48,19 +48,22 @@ defaults
 
 frontend www-frontend
 	bind *:80
-	bind *:443 ssl crt /etc/haproxy/certs/bennettdixon.online.pem
-
-	redirect scheme https code 301 if !{ ssl_fc }
+	reqadd X-Forwarded-Proto:\ http
 	# if configuration for certbot pass to certbot backend
 	acl letsencrypt-acl path_beg /.well-known/acme-challenge/
 	use_backend le-certbot-backend if letsencrypt-acl
 
 	default_backend www-backend
 
+frontend www-https-frontend
+	bind *:443 ssl crt /etc/haproxy/certs/bennettdixon.online.pem
+	reqadd X-Forwarded-Proto:\ https
+	default_backend www-backend
+
 backend le-certbot-backend
 	server letsencrypt 127.0.0.1:8888
 
 backend www-backend
-	balance roundrobin
+        balance roundrobin
         server 496-web-01 35.243.204.105:80
         server 496-web-02 35.190.182.239:80
