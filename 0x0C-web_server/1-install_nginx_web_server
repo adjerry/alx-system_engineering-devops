@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-# install ngix server
-
+# Installs, configures, and starts the server
+# Imanol Asolo
 sudo apt-get update
-sudo apt-get -y install nginx
-sudo ufw allow 'Nginx HTTP'
-sudo echo "Holberton School" > /var/www/html/index.html
+sudo apt-get install -y nginx
+sudo chown -R ubuntu /var/www
+echo "Hello World" > /var/www/html/index.nginx-debian.html
 sudo service nginx start
