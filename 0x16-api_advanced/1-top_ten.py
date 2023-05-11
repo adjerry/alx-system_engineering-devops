@@ -4,20 +4,19 @@ listed for a given subreddit.
 """
 import requests
 
+url = 'https://www.reddit.com/r/{}/hot.json'
+
 
 def top_ten(subreddit):
-    headers = {
-            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_2) Apple' +
-            'WebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.132 Safari/537.36'
-            }
-    r = requests.get('https://www.reddit.com/r/{:}/hot.json?limit=10'.format(
-        subreddit), headers=headers, allow_redirects=False)
-    if r.status_code < 300:
-        json = r.json()
-        data_dict = json.get('data')
-        hot_list = data_dict.get('children')
-        for post in hot_list:
-            sub_data_dict = post.get('data')
-            print(sub_data_dict.get('title'))
-    else:
-        print(None)
+    '''get top_ten '''
+    header = {'user-agent': 'tabbykatz-app1'}
+    r = requests.get(url.format(subreddit), headers=header)
+    if r.status_code != 200:
+        print("None")
+        return
+    children = r.json().get('data', {}).get('children', [])
+    if not children:
+        print("None")
+        return
+    for item in children[0:10]:
+        print(item.get('data', {}).get('title', ''))
