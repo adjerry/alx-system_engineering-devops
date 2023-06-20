@@ -1,3 +1,19 @@
+Get:1 http://security.ubuntu.com/ubuntu focal-security InRelease [114 kB]
+Hit:2 http://ppa.launchpad.net/brightbox/ruby-ng/ubuntu focal InRelease
+Hit:3 http://archive.ubuntu.com/ubuntu focal InRelease
+Hit:4 http://archive.ubuntu.com/ubuntu focal-updates InRelease
+Ign:5 https://apt.datadoghq.com stable InRelease
+Hit:6 https://deb.nodesource.com/node_10.x focal InRelease
+Hit:7 https://apt.datadoghq.com stable Release
+Get:8 http://archive.ubuntu.com/ubuntu focal-backports InRelease [108 kB]
+Fetched 222 kB in 8s (28.1 kB/s)
+Reading package lists...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+curl is already the newest version (7.68.0-1ubuntu2.18).
+0 upgraded, 0 newly installed, 0 to remove and 202 not upgraded.
+rm: cannot remove '/etc/nginx/sites-available/*': No such file or directory
+rm: cannot remove '/etc/nginx/sites-enabled/*~': No such file or directory
 sed: can't read /etc/nginx/sites-enabled/default: No such file or directory
-sed: can't read /etc/nginx/sites-enabled/default: No such file or directory
-./0-nginx_likes_port_80: line 6: nginx: command not found
+nginx: unrecognized service
